@@ -6,6 +6,8 @@ import '../modal/country_modal.dart';
 class countryController extends ChangeNotifier {
   List<country> allcountry = [];
 
+  bool list = true;
+
   countryController() {
     getUser();
   }
@@ -13,6 +15,11 @@ class countryController extends ChangeNotifier {
   getUser() async {
     allcountry = await ApiHelper.apiHelper.getCountry() ?? [];
 
+    notifyListeners();
+  }
+
+  listchange() {
+    list = !list;
     notifyListeners();
   }
 }

@@ -9,38 +9,102 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffDBE2EF),
-        title: Text("Country App", style: TextStyle(color: Color(0xff112D4E))),
+        backgroundColor: const Color(0xffDBE2EF),
+        title: const Text("Country App",
+            style: TextStyle(color: Color(0xff112D4E))),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
+        actions: [
+          Consumer<countryController>(builder: (context, Provider, child) {
+            return IconButton(
+                onPressed: () {
+                  Provider.listchange();
+                },
+                icon: Icon(Provider.list ? Icons.grid_view : Icons.list));
+          })
+        ],
       ),
-      backgroundColor: Color(0xffDBE2EF),
+      backgroundColor: const Color(0xffDBE2EF),
       body: Consumer<countryController>(builder: (context, Provider, child) {
-        return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, crossAxisSpacing: 5, mainAxisSpacing: 5),
-          itemCount: Provider.allcountry.length,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed("Detail_Screen",
-                  arguments: Provider.allcountry[index]);
-            },
-            child: Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Color(0xff3F72AF).withOpacity(0.5),
-              ),
-              child: Center(
-                  child: Text(
-                "${Provider.allcountry[index].name['common']}",
-                style: TextStyle(
-                    color: Color(0xff112D4E),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              )),
-            ),
-          ),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Provider.list
+              ? ListView.builder(
+                  itemCount: Provider.allcountry.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: ListTile(
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        trailing: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed("Detail_Screen",
+                                arguments: Provider.allcountry[index]);
+                          },
+                          icon: Icon(Icons.navigate_next),
+                        ),
+                        title: Text(
+                          "${Provider.allcountry[index].name["common"]}",
+                        ),
+                        subtitle: Text(
+                          "${Provider.allcountry[index].capital[0]}",
+                        ),
+                        tileColor: Color(0xff3F72AF).withOpacity(0.5),
+                        leading: CircleAvatar(
+                          foregroundColor: Colors.white,
+                          foregroundImage: NetworkImage(
+                              Provider.allcountry[index].flage['png']),
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 3 / 2),
+                  itemCount: Provider.allcountry.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed("Detail_Screen",
+                          arguments: Provider.allcountry[index]);
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    Provider.allcountry[index].flage['png']),
+                                fit: BoxFit.cover),
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color(0xff3F72AF).withOpacity(0.5),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                            height: 30,
+                            width: double.infinity,
+                            color: Color(0xff112D4E),
+                            child: Text(
+                              "${Provider.allcountry[index].name['common']}",
+                              style: const TextStyle(
+                                  color: Color(0xffDBE2EF),
+                                  fontSize: 20,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
         );
       }),
     );
