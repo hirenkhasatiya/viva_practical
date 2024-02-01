@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "267541247153",
+    "project_id": "viva-contact-app",
+    "storage_bucket": "viva-contact-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267541247153:android:8b5ee1cc6eec48d6cc1e90",
+        "android_client_info": {
+          "package_name": "com.example.viva_contact_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdX4YXPwA4eiOZoymovIf0c-0xw-WUIqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
