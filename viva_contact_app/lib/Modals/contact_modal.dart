@@ -1,6 +1,6 @@
 class ContactModal {
-  int number;
-  String name, id;
+  int number, id;
+  String name;
 
   ContactModal({required this.number, required this.name, required this.id});
 
@@ -10,5 +10,6 @@ class ContactModal {
   Map<String, dynamic> get toMap => {
         'name': name,
         'number': number,
+        'id': id,
       };
 }

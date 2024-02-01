@@ -40,6 +40,7 @@ dependencies:
   logger: any
   get: any
   sqflite: any
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:

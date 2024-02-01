@@ -15,14 +15,20 @@ class FbHelper {
   }
 
   addContact({required ContactModal contact}) {
-    firestore.collection(collectionPath).doc(contact.id).set(contact.toMap);
+    firestore
+        .collection(collectionPath)
+        .doc(contact.id.toString())
+        .set(contact.toMap);
   }
 
   editContact({required ContactModal contact}) {
-    firestore.collection(collectionPath).doc(contact.id).update(contact.toMap);
+    firestore
+        .collection(collectionPath)
+        .doc(contact.id.toString())
+        .update(contact.toMap);
   }
 
   deletContact({required ContactModal contact}) {
-    firestore.collection(collectionPath).doc(contact.id).delete();
+    firestore.collection(collectionPath).doc(contact.id.toString()).delete();
   }
 }
